@@ -1,6 +1,6 @@
 import copy
 import numpy as np
-from typing import List
+from typing import List
 
 
 def calculate(initial_state: np.ndarray) -> List[np.ndarray]:
