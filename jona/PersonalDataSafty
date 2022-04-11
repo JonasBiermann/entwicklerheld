@@ -1,0 +1,24 @@
+<?php
+declare(strict_types=1);
+include("user_data.php");
+function get_personal_data(string $user_id): array {
+    $data = [];
+    $data = get_user_by_id($user_id);
+    $mal = "*************************************************************************************************************************************************************";
+
+    if (has_strong_authetication($user_id) == false){
+        $data["street"] = substr($data["street"], 0, 3) . substr($mal, 0, strlen($data["street"])-3);
+        $data["zip"] = substr($data["zip"], 0, 3) . substr($mal, 0, strlen($data["zip"])-3);
+        $data["city"] = substr($mal, 0, strlen($data["city"])-3) . substr($data["city"], -3);
+        $data["email"] = substr($mal, 0, strpos($data["email"], "@")) . substr($data["email"], strpos($data["email"], "@"));
+        $data["phone"] = substr($mal, 0, strlen($data["phone"])-3) . substr($data["phone"], -3);
+        $data["bank account"] = substr($data["bank account"], 0, 2) . substr($mal, 0, strlen($data["bank account"])-5) . substr($data["bank account"], -3);
+
+        $data["reference account"]["iban"] = substr($data["reference account"]["iban"], 0, 3) . substr($mal, 0, strlen($data["reference account"]["iban"])-6) . substr($data["reference account"]["iban"], -3);
+        $data["reference account"]["bic"] = substr($mal, 0, strlen($data["reference account"]["bic"])-3) . substr($data["reference account"]["bic"], -3);
+        $data["reference account"]["institution"] = substr($data["reference account"]["institution"], 0, 3) . substr($mal, 0, strlen($data["reference account"]["institution"])-6) . substr($data["reference account"]["institution"], -3);
+    }
+
+    return $data;
+}
+?>
